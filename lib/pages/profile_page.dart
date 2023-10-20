@@ -107,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               },
                               icon: const Icon(
                                 Icons.cancel,
-                                color: Colors.green,
+                                color: Colors.red,
                               )),
                           IconButton(
                               onPressed: () async{
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               },
                               icon: const Icon(
                                 Icons.done,
-                                color: Colors.red,
+                                color: Colors.green,
                               ))
                         ],
                       );
