@@ -106,7 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                         "Sign In",
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        login();
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -133,20 +135,23 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
   login()async{
-    if(formKey.currentState!.validate()){
+    if (formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
-      await authService.logInUserWithEmailandPassword( email, password).then((value) async{
-        if(value == true){
-        QuerySnapshot snapshot=  await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid).gettingUserData(email);
-
-        /// saving the value to our shared preferences
-        await HelperFunction.saveUserLoggedInStatus(true);
-        await HelperFunction.saveUsernameSF(snapshot.docs[0]['fullName']);
-        await HelperFunction.saveUserEmailSF(email);
-          nextScreenReplace(context,const HomePage());
-        }else {
+      await authService
+          .logInUserWithEmailandPassword(email, password)
+          .then((value) async {
+        if (value == true) {
+          QuerySnapshot snapshot =
+          await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+              .gettingUserData(email);
+          // saving the values to our shared preferences
+          await HelperFunction.saveUserLoggedInStatus(true);
+          await HelperFunction.saveUserEmailSF(email);
+          await HelperFunction.saveUsernameSF(snapshot.docs[0]['fullName']);
+          nextScreenReplace(context, const HomePage());
+        } else {
           showSnackBar(context, Colors.red, value);
           setState(() {
             _isLoading = false;

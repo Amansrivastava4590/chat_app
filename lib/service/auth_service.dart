@@ -11,7 +11,7 @@ class AuthService {
      String email,String password
       ) async {
     try {
-      User user = (await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password)).user!;
+      User user = (await firebaseAuth.signInWithEmailAndPassword(email: email, password: password)).user!;
 
       if(user != null){
         return true;
